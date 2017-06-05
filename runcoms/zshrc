@@ -152,6 +152,13 @@ function cover() {
     convert "$out" -resize 500x500 "$out"
 }
 
+function upgradepretzo() {
+    current="$PWD"
+    cd ~/.zprezto
+    git pull && git submodule update --init --recursive
+    cd "$current"
+}
+
 function update() {
   # Ask for the administrator password upfront
   sudo -v
