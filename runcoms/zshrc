@@ -153,9 +153,27 @@ function cover() {
 }
 
 function upgradepretzo() {
+    # Saving current dir and switching to Pretzo dir
     current="$PWD"
     cd ~/.zprezto
+
+    echo "\033[1;36m[Upgrading]\033[0m Pulling updates from forked Github repo..."
     git pull && git submodule update --init --recursive
+
+    echo "\033[1;36m[Upgrading]\033[0m Adding upstream remote (ignore if already exists)..."
+    git remote add upstream https://github.com/sorin-ionescu/prezto.git
+    
+    echo "\033[1;36m[Upgrading]\033[0m Fetching from upstream repo..."
+    git fetch upstream
+    
+    echo "\033[1;36m[Upgrading]\033[0m Merging upstream into master..."
+    git checkout master
+    git merge upstream/master
+
+    echo "\033[1;36m[Upgrading]\033[0m Pushing master to forked Github repo..."
+    git push origin master
+
+    # Going back to original dir
     cd "$current"
 }
 
